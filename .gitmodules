@@ -1,0 +1,6 @@
+[submodule "music-annotation-api"]
+	path = music-annotation-api
+	url = https://github.com/mtikat/music-annotation-api.git
+[submodule "music-annotation-react"]
+	path = music-annotation-react
+	url = https://github.com/mtikat/music-annotation-react.git
