@@ -1,0 +1,35 @@
+version: "3"
+services:
+  api:
+    build: ./music-annotation-api
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    container_name: music-mongoose
+    networks:
+      - wisnotev2
+  db:
+    image: mongo
+    command: mongod --port 27015
+    ports:
+      - "27015:27015"
+    container_name: test
+    volumes:
+      - mongodb_data_container:/var/mongo_data
+    networks:
+      - wisnote
+  client:
+    build: ./music-annotation-react
+    ports:
+      - "8050:8050"
+    container_name: music-react
+    networks:
+      - wisnotev2
+
+volumes:
+  mongodb_data_container:
+
+networks:
+  wisnotev2:
+    driver: bridge
