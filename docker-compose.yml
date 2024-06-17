@@ -2,34 +2,51 @@ version: "3"
 services:
   api:
     build: ./music-annotation-api
+    hostname: api
     ports:
       - "9090:9090"
     depends_on:
       - db
-    container_name: music-mongoose
-    networks:
-      - wisnotev2
+    #container_name: music-mongoose
+    #networks:
+      #- wisnotev2
   db:
-    image: mongo
-    command: mongod --port 27015
+    image: mongo:6.0
+    #command: mongod --port 27015
+    hostname: mongo
     ports:
-      - "27015:27015"
-    container_name: test
+      - "27017:27017"
+    #container_name: test
     volumes:
-      - mongodb_data_container:/var/mongo_data
-    networks:
-      - wisnote
+      - /Users/user/Documents/DB/mongo:/data/db
+    #networks:
+      #- wisnotev2
   client:
+    hostname: client
     build: ./music-annotation-react
     ports:
       - "8050:8050"
-    container_name: music-react
-    networks:
-      - wisnotev2
+    #container_name: music-react
+    #networks:
+     # - wisnotev2
 
-volumes:
-  mongodb_data_container:
+  corese:
+    image: wimmics/corese
+    hostname: corese
+    ports:
+      - "8080:8080"
+    volumes:
+      - /Users/user/Documents/DB/corese/annotation:/usr/local/corese/annotation
+      - /Users/user/Documents/DB/corese/unesco:/usr/local/corese/unesco
+      - /Users/user/Documents/DB/corese/log:/usr/local/corese/log
+      - /Users/user/Documents/DB/corese/config:/usr/local/corese/config
+    #container_name: corese
+    #networks:
+      #- wisnotev2
 
-networks:
-  wisnotev2:
-    driver: bridge
+#volumes:
+  #mongodb_data_container:
+
+#networks:
+  #wisnotev2:
+   # driver: bridge
